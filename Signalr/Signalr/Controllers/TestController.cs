@@ -27,27 +27,27 @@ namespace Signalr.Controllers
             return 0; // Return a value here if necessary
         }
 
-		[HttpGet("ConnectionId")]
-		public async Task<IActionResult> GetConnectionId()
-		{
-			// Generate or retrieve the connection ID
-			string connectionId = await GenerateConnectionId(); // Implement this method to generate or retrieve the connection ID
+		//[HttpGet("ConnectionId")]
+		//public async Task<IActionResult> GetConnectionId()
+		//{
+		//	// Generate or retrieve the connection ID
+		//	string connectionId = await GenerateConnectionId(); // Implement this method to generate or retrieve the connection ID
 
-			// Start SignalR connection here (if needed)
-			// ...
+		//	// Start SignalR connection here (if needed)
+		//	// ...
 
-			// Return the connection ID to the client
-			return Ok(new { ConnectionId = connectionId });
-		}
+		//	// Return the connection ID to the client
+		//	return Ok(new { ConnectionId = connectionId });
+		//}
 
-		// Implement the method to generate or retrieve the connection ID
-		private Task<string> GenerateConnectionId()
-		{
-			// Implement your logic here to generate or retrieve the connection ID
-			// For example, you can generate a unique ID using Guid.NewGuid() method
-			string connectionId = Guid.NewGuid().ToString();
+		//// Implement the method to generate or retrieve the connection ID
+		//private Task<string> GenerateConnectionId()
+		//{
+		//	// Implement your logic here to generate or retrieve the connection ID
+		//	// For example, you can generate a unique ID using Guid.NewGuid() method
+		//	string connectionId = Guid.NewGuid().ToString();
 
-			return Task.FromResult(connectionId);
-		}
+		//	return Task.FromResult(connectionId);
+		//}
 	}
 }
