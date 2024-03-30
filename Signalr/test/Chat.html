@@ -1,0 +1,252 @@
+﻿<!--<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SignalR Chat</title>
+    <script src="Scripts/jquery-1.6.4.js"></script>
+    <script src="Scripts/jquery.signalR-2.4.3.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #chatContainer {
+            width: 400px;
+            background: linear-gradient(45deg, #ff7300, #fcb900);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: #fff;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 90px);
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+            input[type="text"]:focus {
+                background-color: rgba(255, 255, 255, 1);
+            }
+
+        input[type="button"] {
+            width: 80px;
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            background-color: #0044cc;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            input[type="button"]:hover {
+                background-color: #003399;
+            }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+            ul li {
+                padding: 15px;
+                margin-bottom: 10px;
+                border-radius: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s ease;
+            }
+
+                ul li:hover {
+                    background-color: rgba(255, 255, 255, 0.9);
+                }
+
+                ul li strong {
+                    font-weight: bold;
+                }
+    </style>
+    <script>
+        $(function () {
+            // Prompt user for their name
+            var name = prompt("Enter your name");
+
+            // Declare the proxy variable in the outer scope
+            var prox = $.connection.chat;
+
+            // Start the connection
+            $.connection.hub.start();
+
+            // Define callback for receiving messages
+            prox.client.newMessage = function (n, m) {
+                var bgColor = '#' + (Math.random().toString(16) + '000000').slice(2, 8); // Generate random color
+                $("ul").append("<li style='background-color: " + bgColor + ";'><strong>" + n + ":</strong> " + m + "</li>");
+            };
+
+            // Send message function
+            window.send = function () {
+                prox.server.sendMessage(name, $("#txt").val());
+            };
+        });
+    </script>
+</head>
+<body>
+    <div id="chatContainer">
+        <input type="text" id="txt" placeholder="Enter your message" />
+        <br>
+        <input type="button" value="Send" onclick="send()" />
+        <ul></ul>
+    </div>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SignalR Chat</title>
+    <script src="Scripts/jquery-1.6.4.js"></script>
+    <script src="Scripts/jquery.signalR-2.4.3.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #chatContainer {
+            width: 400px;
+            background: linear-gradient(45deg, #EEF5FF, #B4D4FF);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: #fff;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 90px);
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+            input[type="text"]:focus {
+                background-color: rgba(255, 255, 255, 1);
+            }
+
+        input[type="button"] {
+            width: 80px;
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            background-color: #0044cc;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            input[type="button"]:hover {
+                background-color: #003399;
+            }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .message {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+            .message:hover {
+                background-color: rgba(255, 255, 255, 0.9);
+            }
+
+            .message strong {
+                font-weight: bold;
+            }
+    </style>
+    <script>
+        $(function () {
+            // Prompt user for their name
+            var name = prompt("Enter your name");
+
+            // Declare the proxy variable in the outer scope
+            var prox = $.connection.chat;
+
+            // Start the connection
+            $.connection.hub.start();
+
+            // Generate a color based on user's name
+            function generateColor(name) {
+                var hash = 0;
+                for (var i = 0; i < name.length; i++) {
+                    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+                }
+                var color = '#';
+                for (var j = 0; j < 3; j++) {
+                    var value = (hash >> (j * 8)) & 0xFF;
+                    color += ('00' + value.toString(16)).substr(-2);
+                }
+                return color;
+            }
+
+            // Define callback for receiving messages
+            prox.client.newMessage = function (n, m) {
+                var bgColor = generateColor(n); // Generate color based on user's name
+                $("ul").append("<li class='message' style='background-color: " + bgColor + ";'><strong>" + n + ":</strong> " + m + "</li>");
+            };
+
+            // Send message function
+            window.send = function () {
+                prox.server.sendMessage(name, $("#txt").val());
+            };
+        });
+    </script>
+</head>
+<body>
+    <div id="chatContainer">
+        <input type="text" id="txt" placeholder="Enter your message" />
+        <br>
+        <input type="button" value="Send" onclick="send()" />
+        <ul></ul>
+    </div>
+</body>
+</html>
+

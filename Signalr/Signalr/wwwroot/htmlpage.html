@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SignalR Client</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>SignalR Client Example</h1>
+    <div id="message-container"></div>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include SignalR JavaScript library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.12/signalr.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Fetch connection ID dynamically
+            $.get("/api/Test/ConnectionId")
+                .done(function (data) {
+                    const connectionId = data.connectionId;
+                    console.log("Connection ID:", connectionId);
+
+                    // Initialize SignalR connection with obtained connection ID
+                    const connection = new signalR.HubConnectionBuilder()
+                        .withUrl("/ticketHub", { accessTokenFactory: () => connectionId })
+                        .build();
+
+                    connection.on("TicketUpdated", function (ticketData) {
+                        // Handle ticket update
+                        $("#message-container").append("<div>Ticket updated: " + ticketData + "</div>");
+                    });
+
+                    connection.start()
+                        .then(function () {
+                            console.log("SignalR Connected.");
+                        })
+                        .catch(function (err) {
+                            console.error("SignalR Connection Error: ", err);
+                        });
+                })
+                .fail(function (err) {
+                    console.error("Error getting connection ID:", err);
+                });
+        });
+    </script>
+</body>
+</html>
