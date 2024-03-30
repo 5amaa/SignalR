@@ -116,6 +116,7 @@
     </div>
 </body>
 </html>-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -218,8 +219,12 @@
                 for (var i = 0; i < name.length; i++) {
                     hash = name.charCodeAt(i) + ((hash << 5) - hash);
                 }
-                var hexColor = "#" + ((hash) & 0x00FFFFFF).toString(16).toUpperCase();
-                return hexColor;
+                var color = '#';
+                for (var j = 0; j < 3; j++) {
+                    var value = (hash >> (j * 8)) & 0xFF;
+                    color += ('00' + value.toString(16)).substr(-2);
+                }
+                return color;
             }
 
             // Define callback for receiving messages
@@ -244,5 +249,4 @@
     </div>
 </body>
 </html>
-
 
